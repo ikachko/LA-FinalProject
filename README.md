@@ -7,4 +7,4 @@
 
 ## References
 1. https://en.wikipedia.org/wiki/Signal_separation
-2. 
+2. https://scikit-learn.org/stable/auto_examples/decomposition/plot_ica_blind_source_separation.html
