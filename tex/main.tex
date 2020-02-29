@@ -1,5 +1,8 @@
 \documentclass{article}
 
+\usepackage{mathtools}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+
 \usepackage{subfiles} % For multi-file projects
 
 \title{ Blind Source Separation for Musical Recordings }
@@ -10,8 +13,22 @@
 
 \maketitle
 
+\begin{abstract}
+	In this project, we consider the problem of blind source separation - given multiple recordings of ...
+\end{abstract}
+
+
 \section{Introduction}
 \subfile{sections/introduction}
+
+\section{Problem statement}
+\subfile{sections/problem}
+
+\section{Solution approaches}
+\subfile{sections/methods}
+
+\section{Numerical experiment}
+\subfile{sections/experiment}
 
 \section{Results}
 \subfile{sections/results}
