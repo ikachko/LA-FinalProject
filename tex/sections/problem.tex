@@ -1,0 +1,16 @@
+\documentclass[../main.tex]{subfiles} % To be correctly processed by subfiles
+
+% Do not use any packages here, write imports directly to main.tex
+
+\begin{document}
+
+Formally, we denote  each observed recording as $\bx_i$ and each latent original signal as $\bs_j$. Then, linear mixing procedure might be written as 
+
+\[ \bx_i = a_{i1} \bs_1 + \ldots + a_{in} \bs_n, i = \overline{1, m}, \]
+or, in a matrix form, 
+\[ X = A S, \]
+where $A = \left[a_{ij} \right]$ is called a mixing matrix and is unknown. Usually, we assume that the number of recordings $m$ equals the number of original sources $n$.
+
+Our problem is then to find an estimate of the "unmixing matrix" $W = A^{-1}$  and restore original sources $S = W X$.
+
+\end{document}

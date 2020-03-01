@@ -4,15 +4,19 @@
 
 \begin{document}
 
-Blind source separation (or blind signal separation) is a classical problem in signal processing that lies in restoring the original sources from multiple mixed observations. The typical example is a "cocktail party problem": a few people talk in the same room simultaneously and we need to extract the speech of every person given multiple recordings from different microphones placed in that room.
+% General problem description
 
-Formally, we denote  each observed recording as $\bx_i$ and each latent original signal as $\bs_j$. Then, linear mixing procedure might be written as 
+Blind source separation [1] (or blind signal separation) is a classical problem in signal processing that lies in restoring the original sources from multiple mixed observations. The typical example is a "cocktail party problem": a few people talk in the same room simultaneously and we need to extract the speech of every person given multiple recordings from different microphones placed in that room.
 
-\[ \bx_i = a_{i1} \bs_1 + \ldots + a_{in} \bs_n, i = \overline{1, m}, \]
-or, in a matrix form, 
-\[ X = A S, \]
-where $A = \left[a_{ij} \right]$ is called a mixing matrix and is unknown. Usually, we assume that the number of recordings $m$ equals the number of original sources $n$.
+% Main methods
+There are multiple methods for solving this task. Mostly, they reduce to classical Linear Algebra algorithms: Principal Components Analysis [2], Independent Component Analysis [3] (which was developed particularly for this problem), Non-negative Matrix Factorization [4], etc. We describe in detail and compare the performance of second and third of them. Besides classical solutions, there exist some attempts to apply Machine Learning tools [5] to address the limitations of the former.
 
-Our problem is then to find an estimate of an "unmixing matrix" $W = A^{-1}$  and restore original sources $S = W X$.
+% Particular problem description
+
+An interesting application of the problem is separating a musical recording into individual tracks (vocals, guitar, bass, drums) with a hope that the considered classical methods are able to produce a reasonable solution. The quality might be assessed directly by listening to the produced tracks (each of them must represent a particular instrument without, desirable, notable artifacts), but we also consider some domain-specific metrics that measure timbre, which is described in more detail in section 2. 
+
+% Limitations and experiment specification
+
+As it will be described later, to separate $n$ instruments with the chosen methods, we need exactly $n$ recordings (say, microphones in different locations of a studio). Since such data is usually unavailable, we found a few tracks that are not yet mixed and artificially created the required number of observations for each of them. Our future work will address this issue by using such data as supervisor to a deep learning model that is able to perform separation from just one recording.
  
 \end{document}
