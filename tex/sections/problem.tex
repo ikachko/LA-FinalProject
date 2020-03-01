@@ -4,13 +4,40 @@
 
 \begin{document}
 
-Formally, we denote  each observed recording as $\bx_i$ and each latent original signal as $\bs_j$. Then, linear mixing procedure might be written as 
+% Basics of DSP
+\subsection{Basics of digital sound signal processing}
 
-\[ \bx_i = a_{i1} \bs_1 + \ldots + a_{in} \bs_n, i = \overline{1, m}, \]
+
+% What is signal
+% What is sound, analogue vs digital, sample rate
+% Time domain, frequency domain
+
+Now, when we get the basics of sound signal processing, let's return to the blind source separation problem.
+
+% Blind source separation formal problem statement
+\subsection{Blind source separation}
+
+As mentioned earlier, we have $m$ observed recordings of $n$ original sources. Usually, we assume that the number of recordings $m$ equals the number of original sources $n$.
+
+Formally, we represent each observed recording as a discrete signal $\bx_i$ and each source as a latent discrete signal $\bs_j$. Then, linear mixing procedure might be written as 
+\[ \bx_i = a_{i1} \bs_1 + \ldots + a_{in} \bs_n, i = \overline{1, n}, \]
 or, in a matrix form, 
 \[ X = A S, \]
-where $A = \left[a_{ij} \right]$ is called a mixing matrix and is unknown. Usually, we assume that the number of recordings $m$ equals the number of original sources $n$.
+where $A = \left[a_{ij} \right]$ is called a mixing matrix and is unknown. 
 
-Our problem is then to find an estimate of the "unmixing matrix" $W = A^{-1}$  and restore original sources $S = W X$.
+The problem is then to find an estimate of the "unmixing matrix" $W = A^{-1}$  and restore original sources $S = W X$. 
+
+Each algorithm has its own way of extracting original signals. PCA attempts to make signals orthogonal, ICA -- as independent as possible. NMF simply performs an approximate factorization with a hope that the matrices will be interpretable. We describe it in more detail in section 3. Except that, we also need a unique domain-specific metrics that will allow us to quantitatively assess the quality of separation independent of algorithm used to perform it.
+
+% Nuances in a musical domain
+\subsection{Quality assessment}
+
+% What is timbre?
+% Unique characteristics of musical instruments - pitch, power, tone color
+
+
+% How to quantify timbre?
+
+% How 
 
 \end{document}
