@@ -4,6 +4,19 @@
 
 \begin{document}
 
-This is an introduction.
+% General problem description
 
+Blind source separation [1] (or blind signal separation) is a classical problem in signal processing that lies in restoring the original sources from multiple mixed observations. The typical example is a "cocktail party problem": a few people talk in the same room simultaneously and we need to extract the speech of every person given multiple recordings from different microphones placed in that room.
+
+% Main methods
+There are multiple methods for solving this task. Mostly, they reduce to classical Linear Algebra algorithms: Principal Components Analysis [2], Independent Component Analysis [3] (which was developed particularly for this problem), Non-negative Matrix Factorization [4], etc. We describe in detail and compare the performance of second and third of them. Besides classical solutions, there exist some attempts to apply Machine Learning tools [5] to address the limitations of the former.
+
+% Particular problem description
+
+An interesting application of the problem is separating a musical recording into individual tracks (vocals, guitar, bass, drums) with a hope that the considered classical methods are able to produce a reasonable solution. The quality might be assessed directly by listening to the produced tracks (each of them must represent a particular instrument without, desirable, notable artifacts), but we also consider some domain-specific metrics that measure timbre (a characteristics that makes each instrument sound unique), which are described in more detail in section 2. 
+
+% Limitations and experiment specification
+
+As it will be described later, to separate $n$ instruments with the chosen methods, we need exactly $n$ recordings (say, microphones in different locations of a studio). Since such data is usually unavailable, we found a few tracks that are not yet mixed and artificially created the required number of observations for each of them. Our future work will address this issue by using such data as supervisor to a deep learning model that is able to perform separation from just one recording.
+ 
 \end{document}

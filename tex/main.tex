@@ -1,9 +1,35 @@
-\documentclass{article}
+\documentclass[a4paper,12pt]{article}
+
+\textheight=245truemm 
+\textwidth=175truemm 
+\hoffset=-15truemm 
+\voffset=-20truemm
 
 \usepackage{mathtools}
 \usepackage{amsmath,amsfonts,amssymb,amsthm}
 
+\usepackage{indentfirst} % Indent the first paragrapgh
 \usepackage{subfiles} % For multi-file projects
+
+\newcommand{\ba}{{\mathbf a}}
+\newcommand{\bb}{{\mathbf b}}
+\newcommand{\bc}{{\mathbf c}}
+\newcommand{\bd}{{\mathbf d}}
+\newcommand{\be}{{\mathbf e}}
+\newcommand{\bm}{{\mathbf m}}
+\newcommand{\bn}{{\mathbf n}}
+\newcommand{\bp}{{\mathbf p}}
+\newcommand{\bq}{{\mathbf q}}
+\newcommand{\br}{{\mathbf r}}
+\newcommand{\bs}{{\mathbf s}}
+\newcommand{\bu}{{\mathbf u}}
+\newcommand{\bv}{{\mathbf v}}
+\newcommand{\bw}{{\mathbf w}}
+\newcommand{\bx}{{\mathbf x}}
+\newcommand{\by}{{\mathbf y}}
+\newcommand{\bz}{{\mathbf z}}
+
+
 
 \title{ Blind Source Separation for Musical Recordings }
 \author{ Dmitry Lekhovitsky, Illia Kachko }
@@ -14,7 +40,9 @@
 \maketitle
 
 \begin{abstract}
-	In this project, we consider the problem of blind source separation - given multiple recordings of ...
+	In this project, we consider the problem of blind source separation -- given multiple observations of a linearly mixed signal, we aim to restore the mixing matrix and original sources. There are two main methods to perform this problem that heavily rely on linear algebra, namely, Independent Component Analysis (ICA) and Non-negative Matrix Factorization (NMF). We compare their performance against artificially mixed signals.
+	Particularly, we apply them to the problem of separating a musical recording into individual instruments, which might be useful for learning and analysis of tracks.
+	The main restriction of the classical approaches is the requirement that the number of recordings must be equal to the number of sources, which is rarely the case, so in our future work, we plan to remove this restriction by applying deep learning methods.
 \end{abstract}
 
 
@@ -32,5 +60,11 @@
 
 \section{Results}
 \subfile{sections/results}
+
+% \begin{bibliography}
+
+% \bibitem{ica}
+	
+% \end{bibliography}
 
 \end{document}
