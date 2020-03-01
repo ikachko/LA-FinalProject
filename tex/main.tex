@@ -14,7 +14,9 @@
 \maketitle
 
 \begin{abstract}
-	In this project, we consider the problem of blind source separation - given multiple recordings of ...
+	In this project, we consider the problem of blind source separation -- given multiple observations of a linearly mixed signal, we aim to restore the mixing matrix and original sources. There are two main methods to perform this problem that heavily rely on linear algebra, namely, Independent Component Analysis (ICA) and Non-negative Matrix Factorization (NMF). We compare their performance against artificially mixed signals.
+	Particularly, we apply them to the problem of separating a musical recording into individual instruments, which might be useful for learning and analysis of tracks.
+	The main restriction of the classical approaches is the requirement that the number of recordings must be equal to the number of sources, which is rarely the case, so in our future work, we plan to remove this restriction by applying deep learning methods.
 \end{abstract}
 
 
