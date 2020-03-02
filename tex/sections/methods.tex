@@ -10,33 +10,34 @@ This section explains the chosen solution approaches.
 
 ICA description
 
-\begin{algorithm}
+\begin{algorithm} 
+\begin{algorithmic}
 \caption{FastICA algorithm}\label{fastica}
-\textbf{Input}: $C$ Number of desired components
-\begin{algorithmic}[1]
-	\Procedure{FastICA}{}
-	\State $\textit{stringlen} \gets \text{length of }\textit{string}$
-	\State $i \gets \textit{patlen}$
-	\BState \emph{top}:
-	\If {$i > \textit{stringlen}$} \Return false
-	\EndIf
-	\State $j \gets \textit{patlen}$
-	\BState \emph{loop}:
-	\If {$\textit{string}(i) = \textit{path}(j)$}
-	\State $j \gets j-1$.
-	\State $i \gets i-1$.
-	\State \textbf{goto} \emph{loop}.
-	\State \textbf{close};
-	\EndIf
-	\State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
-	\State \textbf{goto} \emph{top}.
-	\EndProcedure
+\item \textbf{Input}: $C$ Number of desired components
+\item \textbf{Input}: $\mathbf{X} \in \mathbb{R}^{N \times M}$ Prewhitened matrix, where each column represents an $N$-dimensional sample, where $C \le N$ 
+\item \textbf{Output}: $\mathbf{W} \in \mathbb{R}^{N \times C}$ Un-mixing matrix where each column projects $\mathbf{X}$ onto independent component.
+\item \textbf{Output}: $\mathbf{S} \in \mathbb{R}^{C \times M}$ Independent components matrix, with $M$ columns representing a sample with $C$ dimensions.
+
+\Function{FastICA}{$A, C$}
+\For{p \textbf{in} 1 to $C$}
+	\State{$\mathbf{w}_p \gets $ Random vector of length N}
+	\While{$\mathbf{w}_p$ changes}
+		\State{$\mathbf{w_p} \gets \frac{1}{M} \mathbf{X}g (\mathbf{w_p}^\top \mathbf{X})^\top - \frac{1}{M} g^{'} (\mathbf{w_p}^\top \mathbf{X}) \mathbf{1} \mathbf{w_p}$}
+		\State{$\mathbf{w_p} \gets \mathbf{w_p} - \sum_{j = 1}^{p - 1}(\mathbf{w_p}^\top \mathbf{w_j})\mathbf{w_j}$}
+		\State{$\mathbf{w_p} \gets \frac{\mathbf{w_p}}{||\mathbf{w_p}||}$}
+	\EndWhile
+\EndFor
+\State{\textbf{output} \textbf{W} $\gets [\mathbf{w_1}, \dots, \mathbf{w_C}]$ }
+\State{\textbf{output} \textbf{S} $\gets \textbf{W}^\top \textbf{X}$}
+\EndFunction
+
 \end{algorithmic}
 \end{algorithm}
-\end{algorithm}
+
+
 
 \subsection{NMF}
 
-NMF description.
+NMF description.	
 
 \end{document}
