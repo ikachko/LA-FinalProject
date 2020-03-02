@@ -4,6 +4,63 @@
 
 \begin{document}
 
-This is an experiment description and setup section.
+\subsection{Data}
+
+We used data from an online source Puremix, that provides a set of individualy recorded instruments from a single track. For our experiment we used \textit{Iron Sheik -- Dry Clean Only} track. It contains a 30 unique recordings in a .wav format:
+\begin{list}{--}{spacing}
+	\item 16 drums
+	\item 5 guitars
+	\item 9 vocals
+\end{list}
+
+\subsection{Input}
+
+
+We have picked one audio from each class and mixed them in a different combinations.
+
+Let $S$ be a $N \times K$ matrix, where $K$ is a number of independent signals and $N$ be a length of each signal:
+
+
+$G, V, D --\text{vectors of a guitar, vocal and drums signals}$
+
+$$S = \begin{bmatrix}
+G & V & D
+\end{bmatrix}$$
+
+Then, we used a $K \times K$ coefficient matrix $H$ that will multiply each instrument by a coefficient and sum them up.
+
+For out experiment we used matrix with such coefficients:
+
+$$H = \begin{bmatrix}
+0.2 & 0.6 & 0.4 \\
+0.5 & 0.2 & 0.1 \\
+0.3 & 0.2 & 0.5
+\end{bmatrix}$$
+
+So our resulting matrix of mixed tracks is:
+
+$$X = H S$$
+
+that can be interpreted like this:
+
+$X_i = V * H_{i, 1} + G * H_{i, 2} + D * H_{i, 3} $ -- i-th mixed track
+
+
+\subsection{Tools}
+
+To compute a numerical experiments we used a \textbf{sklearn.decomposition} module.
+
+
+For an ICA we used \textbf{sklearn.decomposition.FastICA}
+
+For an NMF we used \textbf{sklearn.decomposition.NMF}
+
+
+
+
+
+
+
+
 
 \end{document}
