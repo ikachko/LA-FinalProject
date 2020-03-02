@@ -7,27 +7,42 @@
 % Basics of DSP
 \subsection{Basics of digital sound signal processing}
 
-
-% What is signal
 % What is sound, analogue vs digital, sample rate
+Every sound can be represented as a signal -- a continuous function of time, frequently denoted as $x = x(t)$. $x$ itself represents the current amplitude. Time-amplitude space of a signal is called its time domain.
+To handle the signals with a computer, we should make it discrete, i.e., transform from analogue representation to digital. The simplest way to do this is to take a fixed number of signal measurements per second, which is called sample rate, and the process itself is called sampling. Typical values of sample rate are 22050 Hz (samples per second) and 44100 Hz. As a result, we get a discretized signal $x_t$, which is easy to work with using a computer. To transform the signal back from digital to analogue representation, we might use various interpolation techniques.
+
+When we have more than one source of sound, e.g. multiple instruments playing in the same room, each of them produces a signal, and the joint signal is produced by mixing them. In the simplest case, the result is simply a linear combination of sources, and coefficients might depend on the location of a microphone, speaker loudness, etc.
+
 % Time domain, frequency domain
+
+Besides amplitude, there is one more important characteristics of a signal -- frequencies present in it. This is actually what our ear hears and allows to differentiate two different signals.
+
+The simplest signal is a sinusoid $x(t) = \sin(2\pi \omega t)$. It contains only one frequency $\omega$ and we hear it as a constant sound (only if $\omega$ is an audible range, from 20 to 22000 Hz). For example, if $\omega$ is 440 Hz, we would here this sinusoid as a note A.
+All more complex signals can be represented as linear combinations of sinusoids using a Fourier transform: 
+\[ x(t) \propto \int_{-\infty}^{+\infty} A(w) \sin(2\pi \omega t + \varphi(\omega)) d \omega \]
+for continuous signals and 
+\[ x_t \propto \sum_{k=-\infty}^{+\infty} A_k \sin(2 \pi k t + \varphi_k). \]
+for discrete. 
+Here $A$ determine the "loudness" of all frequencies in the signal, $\varphi$ are sinusoids' phases and $\propto$ means proportionality. In reality, the Fourier transform is slightly more complicated [6], [7], but for demonstration purposes it is enough.
+
+Frequency-amplitude space of a signal is called its frequency domain. Since songs are usually not stationary, their frequency domain changes over time. To account for this, there exists a technique called Short-Term Fourier Transform [8] which performs Fourier transform with a rolling window. As a result of it, we get a 3D chart with time on $X$-axis, frequency on $Y$-axis and amplitude of a given frequency at a given time-stamp on $Z$-axis.
 
 Now, when we get the basics of sound signal processing, let's return to the blind source separation problem.
 
 % Blind source separation formal problem statement
 \subsection{Blind source separation}
 
-As mentioned earlier, we have $m$ observed recordings of $n$ original sources. Usually, we assume that the number of recordings $m$ equals the number of original sources $n$.
+In our problem, we have $m$ observed recordings of $n$ original sources. Usually, we assume that the number of recordings $m$ equals the number of original sources $n$.
 
-Formally, we represent each observed recording as a discrete signal $\bx_i$ and each source as a latent discrete signal $\bs_j$. Then, linear mixing procedure might be written as 
+We denote each observed recording as a discrete signal $\bx_i$ and each source as a latent discrete signal $\bs_j$. Then, linear mixing procedure might be written as 
 \[ \bx_i = a_{i1} \bs_1 + \ldots + a_{in} \bs_n, i = \overline{1, n}, \]
 or, in a matrix form, 
 \[ X = A S, \]
 where $A = \left[a_{ij} \right]$ is called a mixing matrix and is unknown. 
 
-The problem is then to find an estimate of the "unmixing matrix" $W = A^{-1}$  and restore original sources $S = W X$. 
+The blind source separation problem lies in finding an estimate of the "unmixing matrix" $W = A^{-1}$  and restoring original sources $S = W X$. 
 
-Each algorithm has its own way of extracting original signals. PCA attempts to make signals orthogonal, ICA -- as independent as possible. NMF simply performs an approximate factorization with a hope that the matrices will be interpretable. We describe it in more detail in section 3. Except that, we also need a unique domain-specific metrics that will allow us to quantitatively assess the quality of separation independent of algorithm used to perform it.
+Each algorithm has its own way of extracting original signals. PCA attempts to make signals orthogonal, ICA -- as independent as possible. NMF simply performs an approximate factorization with a hope that the matrices will be interpretable. We describe it in more detail in section 3. Except that, we also need a unique domain-specific metric that will allow us to quantitatively assess the quality of separation independent of the algorithm used to perform it.
 
 % Nuances in a musical domain
 \subsection{Quality assessment}
