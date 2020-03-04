@@ -4,11 +4,10 @@
 
 \begin{document}
 
-
 \subsection{ICA}
 
 Independent Component Analysis (ICA) is a method developed particularly for solving a blind source separation problem, although it might also be used for dimensionality reduction. 
-A very good explanation of ICA is given at [3], here we briefly provide the intuition and pseudocode.
+A very good explanation of ICA is given at \cite{ica}, here we briefly provide the intuition and pseudocode.
 
 It acts similarly to Principal Component Analysis in a sense that they both try to find a basis set of vectors of the data that optimizes some property. 
 The difference is that instead of making the components orthogonal by requiring them to explain the maximum possible variance along each axis, it tries to make them as independent as possible:
@@ -31,7 +30,7 @@ This idea lies in heart of ICA.
 A very simple measure of non-Gaussianity is Kurtosis. 
 More advanced metrics like neg-entropy are also used frequently.
 
-Without diving too deep into further technical details, we provide a pseudocode of FastICA algorithm [3, 9] -- a practical implementation of ICA, which we use in our experiments. For FastICA we need to select a non-linear function $f(u)$ with $g(u) = f^\prime(u)$. The typical choices are $f(u) = \log\cosh u$ and $f(u) = - e^{-\frac{u^2}{2}}$. We assume that $f$, $g$ and $g^\prime$ are vectorized, e.g. $g(\mathbf{x})$ means $\left[ g(x_1), \ldots, g(x_n) \right]^\top$.
+Without diving too deep into further technical details, we provide a pseudocode of FastICA algorithm \cite{ica,fastica} -- a practical implementation of ICA, which we use in our experiments. For FastICA we need to select a non-linear function $f(u)$ with $g(u) = f^\prime(u)$. The typical choices are $f(u) = \log\cosh u$ and $f(u) = - e^{-\frac{u^2}{2}}$. We assume that $f$, $g$ and $g^\prime$ are vectorized, e.g. $g(\mathbf{x})$ means $\left[ g(x_1), \ldots, g(x_n) \right]^\top$.
 
 \begin{algorithm} 
 	\begin{algorithmic}
@@ -47,25 +46,24 @@ Without diving too deep into further technical details, we provide a pseudocode 
 		\While{$\bw_p$ changes}
 		\State{$\bw_p \gets 
 			\frac{1}{d} X^\top g(X \bw_p)^\top - 
-			\frac{1}{d} \bw_p \mathbf{1}_n^\top g^\prime(X \bw_p) $
+			\frac{1}{d} \mathbf{1}_n^\top g^\prime(X \bw_p) \bw_p$
 		} \Comment{Main step}
 		\State{$\bw_p \gets 
 			\bw_p - \sum_{j=1}^{p-1}(\bw_p^\top \bw_j) \bw_j$
-		} \Comment{Orthogonalization in order not}
+		} \Comment{Orthonormalization in order not to}
 		\State{$\bw_p \gets 
 			\frac{ \bw_p }{ \|\bw_p \| }$
-		} \Comment{to run into any of previous $\bw_j$}
+		} \Comment{run into any of previous $\bw_j$'s}
 		\EndWhile
 		\EndFor
 		\State{\textbf{output} $W$ $\gets \left[ \mathbf{w}_1, \ldots, \mathbf{w}_d \right]$ }
 		\State{\textbf{output} S $\gets X W$}
 		\EndFunction
-		
 	\end{algorithmic}
 \end{algorithm}
 
 \subsection{NMF}
 
-Non-negative matrix factorization is another method often recommended to use to perform blind source separation.
+Non-negative matrix factorization (NMF) \cite{nmf} is another method often recommended to use to perform blind source separation.
 
 \end{document}
