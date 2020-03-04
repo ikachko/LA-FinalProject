@@ -91,10 +91,10 @@ Below we provide a pseudocode of iterative NMF algorithm with Kullback-Leibler D
 		\State{Initialize $W$, $H$ randomly}
 		\While{$D_{KL} (X || WH) \ge \varepsilon$}
 		\ForAll{i, j} \Comment{Not in-place}
-		\State{$H[i, j] \gets H[i, j] \frac{(W^\top X)[i, j]}{(W^\top W H)[i, j]}$}
+		\State{$H_{i, j} \gets H_{i, j} \frac{(W^\top X)_{i, j}}{(W^\top W H)_{i, j}}$}
 		\EndFor
 		\ForAll{i, j} \Comment{Not in-place}
-		\State{$W[i, j] \gets W[i, j] \frac{(X H^\top)[i, j]}{ (W H H^\top)[i, j] }$}
+		\State{$W_{i, j} \gets W_{i, j} \frac{(X H^\top)_{i, j}}{ (W H H^\top)_{i, j} }$}
 		\EndFor
 		\EndWhile
 		
