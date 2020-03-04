@@ -1,3 +1,6 @@
+./.ipynb_checkpoints/
 ./tex/main.log
 ./tex/main.pdf
+./tex/main.aux
+./tex/main.out
 ./tex/main.synctex.gz
