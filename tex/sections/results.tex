@@ -4,6 +4,11 @@
 
 \begin{document}
 
-This is results comparison section.
+The results showed that the selected methods had very different efficiencies.
 
+FastICA worked more effectively than we expected. On all the selected songs ICA effectively distinguished all components. The only observation was that when you listen to the component after the transformation, you could hear very quietly the other instruments. But the main instrument was heard clearly and loudly. Even questinable component from \textit{Oasis - Wonderwall} string+guitars was separated amazingly from others. 
+
+The NMF worked poorly, whatever hyperparameters we would pick. One algorithm came together so that only one voice could be clearly distinguished in one component. But the other components made a lot of noise and it was impossible to express any instrument clearly. In the future, in all experiments, this was the case with all components.
+
+We can summarize that the \textit{blind source separation problem} can be solved with some limitation. ICA does well on separating components, but for $K$ instruments it requires at least as many number observations. But in real life problem usually we would like to separate instruments from only one record. And that will be our next challenge, that we are going to solve with Machine Learning methods.
 \end{document}
