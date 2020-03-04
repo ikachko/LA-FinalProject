@@ -18,10 +18,14 @@ When we have more than one source of sound, e.g. multiple instruments playing in
 Besides amplitude, there is one more important characteristics of a signal -- frequencies present in it. This is actually what our ear hears and allows to differentiate two different signals.
 
 The simplest signal is a sinusoid $x(t) = \sin(2\pi \omega t)$. It contains only one frequency $\omega$ and we hear it as a constant sound (only if $\omega$ is an audible range, from 20 to 22000 Hz). For example, if $\omega$ is 440 Hz, we would here this sinusoid as a note A.
-All more complex signals can be represented as linear combinations of sinusoids using a Fourier transform: 
-\[ x(t) \propto \int_{-\infty}^{+\infty} A(w) \sin(2\pi \omega t + \varphi(\omega)) d \omega \]
+All more complex signals can be represented as linear combinations of sinusoids using a Fourier transform:
+
+\[x(t) \propto \int_{-\infty}^{+\infty} A(w) \sin(2\pi \omega t + \varphi(\omega)) d \omega\]
+
 for continuous signals and 
-\[ x_t \propto \sum_{k=-\infty}^{+\infty} A_k \sin(2 \pi k t + \varphi_k). \]
+
+\[x_t \propto \sum_{k=-\infty}^{+\infty} A_k \sin(2 \pi k t + \varphi_k)\]
+
 for discrete. 
 Here $A$ determine the "loudness" of all frequencies in the signal, $\varphi$ are sinusoids' phases and $\propto$ means proportionality. In reality, the Fourier transform is slightly more complicated [6], [7], but for demonstration purposes it is enough.
 
@@ -34,10 +38,17 @@ Now, when we get the basics of sound signal processing, let's return to the blin
 
 In our problem, we have $m$ observed recordings of $n$ original sources. Usually, we assume that the number of recordings $m$ equals the number of original sources $n$.
 
-We denote each observed recording as a discrete signal $\bx_i$ and each source as a latent discrete signal $\bs_j$. Then, linear mixing procedure might be written as 
-\[ \bx_i = a_{i1} \bs_1 + \ldots + a_{in} \bs_n, i = \overline{1, n}, \]
-or, in a matrix form, 
-\[ X = A S, \]
+We denote each observed recording as a discrete signal $\bx_i$ and each source as a latent discrete signal $\bs_j$. Then, linear mixing procedure might be written as
+
+\begin{equation}
+\bx_i = a_{i1} \bs_1 + \ldots + a_{in} \bs_n, i = \overline{1, n}
+\end{equation}
+or, in a matrix form,
+
+\begin{equation}
+X = A S
+\end{equation}
+
 where $A = \left[a_{ij} \right]$ is called a mixing matrix and is unknown. 
 
 The blind source separation problem lies in finding an estimate of the "unmixing matrix" $W = A^{-1}$  and restoring original sources $S = W X$. 
