@@ -10,18 +10,20 @@ Independent Component Analysis (ICA) is a method developed particularly for solv
 A very good explanation of ICA is given at \cite{ica}, here we briefly provide the intuition and pseudocode.
 
 It acts similarly to Principal Component Analysis in a sense that they both try to find a basis set of vectors of the data that optimizes some property. 
-The difference is that instead of making the components orthogonal by requiring them to explain the maximum possible variance along each axis, it tries to make them as independent as possible:
+The difference is that instead of making the components orthogonal by requiring them to explain the maximum possible variance along each axis, it tries to make them as independent as possible (fig. \ref{fig:icapca}).
 
-\begin{figure}[!h]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.75\textwidth]{ica_pca}
+	\caption{PCA vs ICA example}
+	\label{fig:icapca}
 \end{figure}
 
 The algorithm starts with the familiar setup: there is a matrix of observations $X$ which is assumed to be a linear mixing of latent original sources $S$: $X = S A$. 
 The goal is to estimate the sources $\hat S = X W$ with $W$ being an unmixing matrix, ideally, $W = A^{-1}$.
 
 First step is preprocessing, which is centering and "whitening" the data: demeaning data, putting it on the same scale and removing correlations in order to deal only with higher-order dependencies.
-The second step can be performed with SVD: if $X = U \Sigma V^T$ is a singular value decomposition of $X$, which is already centered, we can perform whitening in the following way: \[X^\prime = \Sigma^{-1} U^\top  X\].
+The second step can be performed with SVD: if $X = U \Sigma V^T$ is a singular value decomposition of $X$, which is already centered, we can perform whitening in the following way: \[X^\prime = \Sigma^{-1} U^\top  X.\]
 
 The Central Limit Theorem states that the sum of independent random variables tends to normal distribution under certain conditions. 
 Thus, even if we only two non-Gaussian variables (which is usually the case for the signals we deal with in this problem), their sum will have the distribution closer to Gaussian than each of the original variables. 
@@ -64,38 +66,41 @@ Without diving too deep into further technical details, we provide a pseudocode 
 
 \subsection{NMF}
 
-Non-negative Matrix Factorization (NMF) \cite{nmf, nmf_wiki} is another method often recommended to use to perform blind source separation. It factorize matrix \textbf{X} into matrix of basis vectors \textbf{W} and matrix of weights \textbf{H} with a property, that all three matrices have no negative elements. 
+Non-negative Matrix Factorization (NMF) \cite{nmf} is another method often recommended to use to perform blind source separation. It factorize matrix $X$ into matrix of basis vectors $W$ and matrix of weights $H$ with a property, that all three matrices have no negative elements: $X = W H$.
 
-$$X = W H$$
+Goal of NMF is to minimize distance between the original matrix $X$ and the reconstructed one $W H$. It is recommended to use either Euclidean distance or Kullback-Leibler divergence \cite{nmf_tutorial}. In our experiments we used Kullback-Leibler distance, given by
 
-Multiplication above can be interpreted as computing the column of $Xi$ as a linear combinations of columns vectors in $W$ using coefficients supplied by columns of $H$.
+\[ D \left( X || X^\prime \right) = \sum_{i,j} \left( 
+X_{ij} \log{\frac{X_{ij}}{X_{ij}^\prime} - X_{ij} + X_{ij}^\prime}
+\right).\]
 
-Our assumption is that these are audio sources and mixing matrix that we are aiming to restore.
+The motivation to use NMF for blind source separation is that we hope $W$ tp correspond to original sources and $H$ to a mixing matrix that we are aiming to restore.
 
-Goal of NMF is to minimize distance between original spectrogram X and WH. It is recommended to use either Euclidean distance or Kullback-Leibler divergence \cite{nmf_tutorial}. In our experiments we used Kullback-Leibler distance, that is formulated below.
-
-$$D(X || X^{'}) = \sum_{i,j} (X_{ij} \log{\frac{X_{ij}}{X_{ij}^{'}} - X_{ij} + X_{ij}^{'}})$$
-
-Below we provide a pseudocode of iterative NMF algorithm for Kullback-Leibler Divergence, that we used in out experiments.
+Below we provide a pseudocode of iterative NMF algorithm with Kullback-Leibler Divergence, which we use in our experiments.
 
 \begin{algorithm} 
 	\begin{algorithmic}
 		\caption{KL-NMF algorithm}\label{nmf}
 		\item \textbf{Input}: $X  \in \mathbb{R}^{n \times d}$ -- positive data matrix (spectrogram)
 		\item \textbf{Input}: $k \le d$ -- desired number of components
-		\item \textbf{Input}: $\varepsilon$ -- tolerance of the stopping condition
-		\item \textbf{Output}: $W \in \mathbb{R}^{k \times d}$ -- matrix of basis vectors
-		\item \textbf{Output}: $H \in \mathbb{R}^{n \times d}$ -- matrix of weights
+		\item \textbf{Input}: $\varepsilon$ -- desired tolerance 
+		\item \textbf{Output}: $W \in \mathbb{R}^{n \times k}$ -- matrix of basis vectors
+		\item \textbf{Output}: $H \in \mathbb{R}^{k \times d}$ -- matrix of weights
 		
 		\Function{KL-NMF}{$X, k, \varepsilon$}
 		\State{Initialize $W$, $H$ randomly}
 		\While{$D_{KL} (X || WH) \ge \varepsilon$}
-			\State{$H \gets H \frac{W^\top \frac{X}{W H}}{W^\top \textbf{1}}$}
-			\State{$W \gets W \frac{\frac{X}{W H} H^\top}{\textbf{1} H^\top }$}
+		\ForAll{i, j} \Comment{Not in-place}
+		\State{$H_{i, j} \gets H_{i, j} \frac{(W^\top X)_{i, j}}{(W^\top W H)_{i, j}}$}
+		\EndFor
+		\ForAll{i, j} \Comment{Not in-place}
+		\State{$W_{i, j} \gets W_{i, j} \frac{(X H^\top)_{i, j}}{ (W H H^\top)_{i, j} }$}
+		\EndFor
 		\EndWhile
-
+		
 		\State{\textbf{output} $W, H$}
 		\EndFunction
 	\end{algorithmic}
 \end{algorithm}
+
 \end{document}

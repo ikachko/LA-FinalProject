@@ -58,7 +58,7 @@
 \begin{abstract}
 	In this project, we consider the problem of blind source separation -- given multiple observations of a linearly mixed signal, we aim to restore the mixing matrix and original sources.
 	There are two main methods to perform this problem that heavily rely on linear algebra, namely, Independent Component Analysis (ICA) and Non-negative Matrix Factorization (NMF).
-	Particularly, we apply these methods to the problem of separating a musical recording into individual tracks and show that ICA frequently produces the reasonable solution, while NMF fails in most cases.
+	Particularly, we apply these methods to the problem of separating a musical recording into individual tracks and show that ICA frequently produces the reasonable solution, usually better than of NMF.
 	The main restriction of the classical approaches is the requirement that the number of recordings must be equal to the number of sources, which is rarely the case. 
 	To get the needed number of observations we artificially mix the multi-tracks of a few songs with random mixing matrices.
 	In our future work, we plan to remove this constrain by applying deep learning methods, and also introduce the formal quality assessment metric.
@@ -90,7 +90,9 @@ Blind Signal Separation. Wikipedia, The Free Encyclopedia,
 Aapo Hyvärinen and Erkki Oja. \textit{Independent Components Analysis: Algorithms and Applications}. Neural Networks, 13(4-5):411-430, 2000
 
 \bibitem{nmf}
-Daniel D. Lee, H. Sebastian Seung. \textit{Algorithms for Non-negative Matrix Factorization}. Neural Information Processing Systems, 2001.
+Non-negative matrix factorization. Wikipedia, The Free Encyclopedia,
+
+\texttt{https://en.wikipedia.org/wiki/Non-negative\_matrix\_factorization}
 
 \bibitem{mlbss}
 Romain Hennequin, Anis Khlif, Felix Voituret, and Manuel Moussallam. \textit{Spleeter: A Fast And State-of-the Art Music Source Separation Tool With Pre-trained Models}. Late-Breaking/Demo ISMIR 2019.
@@ -110,29 +112,19 @@ Short-time Fourier transform. Wikipedia, The Free Encyclopedia,
 
 \texttt{https://en.wikipedia.org/wiki/Short-time\_Fourier\_transform}
 
+\bibitem{eval}
+Daniel Schobbe, Kari Torkkola, Paris Smaragdis. \textit{Evaluation of Blind Signal Separation Methods}. Proceedings of the Workshop on Independent Component Analysis and Blind Signal Separation, 2000.
+
 \bibitem{fastica}
 FastICA. Wikipedia, The Free Encyclopedia,
 
 \texttt{https://en.wikipedia.org/wiki/FastICA}
 
-\bibitem{nmf_wiki}
-Non-negative matrix factorization. Wikipedia, The Free Encyclopedia,
-
-\texttt{https://en.wikipedia.org/wiki/Non-negative\_matrix\_factorization}
-
 \bibitem{nmf_tutorial}
-Source Separation Tutorial Mini-Series II: Introduction to Non-Negative Matrix Factorization. Nicholas Bryan, Dennis Sun. Center for Computer Research in Music and Acoustics,Stanford University
+Nicholas Bryan, Dennis Sun. \textit{Source Separation Tutorial Mini-Series II: Introduction to Non-Negative Matrix Factorization}.
 
 \texttt{https://ccrma.stanford.edu/~njb/teaching/sstutorial/part2.pdf}
 
-
 \end{thebibliography}
-
-% [1] - Blind source separation
-% [2]
-% [3] - https://www.cs.helsinki.fi/u/ahyvarin/papers/NN00new.pdf
-% [4] - 
-% [9] - https://en.wikipedia.org/wiki/FastICA
-	
 
 \end{document}
