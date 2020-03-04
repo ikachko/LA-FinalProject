@@ -4,6 +4,36 @@
 
 \begin{document}
 
+With a clearly stated problem and all key methods described, let's apply them to separate a few songs. The procedure is described bellow. All the source code and the data can be found at \href{https://github.com/ikachko/LA-FinalProject}{GitHub repository}.
 
+First, we take a pre-mixed multitrack recording of some song. We used the following ones, which are freely available at mixing enthusiasts forums:
+
+\begin{itemize}[leftmargin=4em]
+	\item Dry Clean Only -- Iron Sheik (guitar, vocal, bass and drums tracks);
+	\item Oasis -- Wonderwall (guitar, vocal, bass, drums and strings+guitar tracks);
+	\item All Star -- Smash Mouth (guitar, vocal, bass, drums, effects tracks).
+\end{itemize}
+
+We load each track separately and store it as a column of a matrix $S$ of sources.
+It is also useful to build a spectrogram for each track to get a visual sense of it and be able to compare the spectrograms of original and estimated sources. 
+To handle records (loading tracks, building spectrograms) we use a package \lstinline{librosa}.
+
+Next, we generate a random mixing matrix $A$ to produce the required number of observations by applying $X = S A$.
+
+NMF requires some further preprocessing, namely, $X$ must be non-negative.
+We can achieve this by subtracting from each column of $X$ the smallest value in it, or by applying the min-max normalization to each column. 
+
+Now, we can apply the separation. 
+To perform it, we use \lstinline{sklearn.decompose} module which provides \lstinline{FastICA} and \lstinline{NMF} classes with simple interface.
+
+The main questions we set for this experiment are:
+
+\begin{itemize}[leftmargin=4em]
+	\item Can any of the methods produce reasonable separations?
+	\item Can the methods handle the blended source tracks (e.g., strings+guitar in Wonderwall)?
+	\item How audible are the artifacts?
+\end{itemize}
+
+The results and conclusions are provided in the next section.
 
 \end{document}
