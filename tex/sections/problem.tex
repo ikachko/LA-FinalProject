@@ -33,11 +33,11 @@ for continuous signals and
 
 for discrete. 
 Here $A$ determine the "loudness" of all frequencies in the signal, $\varphi$ are sinusoids' phases and $\propto$ means proportionality. 
-In reality, the Fourier transform is slightly more complicated [6], [7], but for demonstration purposes it is enough.
+In reality, the Fourier transform is slightly more complicated \cite{ft,dft}, but for demonstration purposes it is enough.
 
 Frequency-amplitude space of a signal is called its frequency domain.
 Since songs are usually not stationary, their frequency domain changes over time. 
-To account for this, there exists a technique called Short-Term Fourier Transform [8] which performs Fourier transform with a rolling window. 
+To account for this, there exists a technique called Short-time Fourier Transform \cite{stft} which performs Fourier transform with a rolling window. 
 As a result of it, we get a 3D chart called spectrogram with time on $X$-axis, frequency on $Y$-axis and amplitude of a given frequency at a given time-stamp on $Z$-axis.
 
 Now, when we get the basics of sound signal processing, let's return to the blind source separation problem.

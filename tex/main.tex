@@ -9,10 +9,23 @@
 \usepackage{amsmath,amsfonts,amssymb,amsthm}
 \usepackage{indentfirst} % Indent the first paragrapgh
 \usepackage{subfiles} % For multi-file projects
-\usepackage{enumitem} % Lists formatting
-\usepackage{listings} % Code
-\usepackage{hyperref}
+
+% Lists formatting
+\usepackage{enumitem} 
 \setlist{nosep}
+
+% Code
+\usepackage{listings}
+
+% Pseudocode
+\usepackage[Algorithm,ruled]{algorithm}
+\usepackage{algorithm,algpseudocode}
+
+\usepackage{hyperref}
+
+% Graphix
+\usepackage{graphicx}
+\graphicspath{ {images/} }
 
 \newcommand{\ba}{{\mathbf a}}
 \newcommand{\bb}{{\mathbf b}}
@@ -67,10 +80,48 @@
 \section{Results}
 \subfile{sections/results}
 
-% \begin{bibliography}
+\begin{thebibliography}{9}
+\bibitem{bss} 
+Blind Signal Separation. Wikipedia, The Free Encyclopedia,
+ 
+\texttt{https://en.wikipedia.org/wiki/Signal\_separation}
 
-% \bibitem{ica}
+\bibitem{ica}
+Aapo Hyvärinen and Erkki Oja. \textit{Independent Components Analysis: Algorithms and Applications}. Neural Networks, 13(4-5):411-430, 2000
+
+\bibitem{nmf}
+Daniel D. Lee, H. Sebastian Seung. \textit{Algorithms for Non-negative Matrix Factorization}. Neural Information Processing Systems, 2001.
+
+\bibitem{mlbss}
+Romain Hennequin, Anis Khlif, Felix Voituret, and Manuel Moussallam. \textit{Spleeter: A Fast And State-of-the Art Music Source Separation Tool With Pre-trained Models}. Late-Breaking/Demo ISMIR 2019.
+
+\bibitem{ft}
+Fourier Transform. Wikipedia, The Free Encyclopedia,
+
+\texttt{https://en.wikipedia.org/wiki/Fourier\_transform}
+
+\bibitem{dft}
+Discrete-time Fourier transform. Wikipedia, The Free Encyclopedia,
+
+\texttt{https://en.wikipedia.org/wiki/Discrete-time\_Fourier\_transform}
+
+\bibitem{stft}
+Short-time Fourier transform. Wikipedia, The Free Encyclopedia,
+
+\texttt{https://en.wikipedia.org/wiki/Short-time\_Fourier\_transform}
+
+\bibitem{fastica}
+FastICA. Wikipedia, The Free Encyclopedia,
+
+\texttt{https://en.wikipedia.org/wiki/FastICA}
+
+\end{thebibliography}
+
+% [1] - Blind source separation
+% [2]
+% [3] - https://www.cs.helsinki.fi/u/ahyvarin/papers/NN00new.pdf
+% [4] - 
+% [9] - https://en.wikipedia.org/wiki/FastICA
 	
-% \end{bibliography}
 
 \end{document}
