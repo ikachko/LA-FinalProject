@@ -4,14 +4,61 @@
 
 \begin{document}
 
-This section explains the chosen solution approaches.
 
 \subsection{ICA}
 
-ICA description.
+Independent Component Analysis (ICA) is a method developed particularly for solving a blind source separation problem, although it might also be used for dimensionality reduction. 
+A very good explanation of ICA is given at [3], here we briefly provide the intuition and pseudocode.
+
+It acts similarly to Principal Component Analysis in a sense that they both try to find a basis set of vectors of the data that optimizes some property. 
+The difference is that instead of making the components orthogonal by requiring them to explain the maximum possible variance along each axis, it tries to make them as independent as possible:
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.75\textwidth]{ica_pca}
+\end{figure}
+
+The algorithm starts with the familiar setup: there is a matrix of observations $X$ which is assumed to be a linear mixing of latent original sources $S$: $X = S A$. 
+The goal is to estimate the sources $\hat S = X W$ with $W$ being an unmixing matrix, ideally, $W = A^{-1}$.
+
+First step is preprocessing, which is centering and "whitening" the data: demeaning data, putting it on the same scale and removing correlations in order to deal only with higher-order dependencies.
+The second step can be performed with SVD: if $X = U \Sigma V^T$ is an singular value decomposition of $X$, which is already centered, we can perform whitening in the following way: \[X^\prime = \Sigma^{-1} U^\top  X\].
+
+The Central Limit Theorem states that the sum of independent random variables tends to normal distribution under certain conditions. 
+Thus, even if we only two non-Gaussian variables (which is usually the case for the signals we deal with in this problem), their sum will have the distribution closer to Gaussian than each of the original variables. 
+Thus, by minimizing the normality of $\bw^\top \bx$ for each column $\bx$ of $X^\prime$ w.r.t. $\bw$, we will be able to find the original sources and construct the unmixing matrix $W$.
+This idea lies in heart of ICA.
+A very simple measure of non-Gaussianity is Kurtosis. 
+More advanced metrics like neg-entropy are also used frequently.
+
+Without diving too deep into further technical details, we provide a pseudocode of FastICA -- a practical implementation of ICA, which we use in our experiments.
+
+\begin{algorithm} 
+	\begin{algorithmic}
+		\caption{FastICA algorithm}\label{fastica}
+		\item \textbf{Input}: $X \in \mathbb{R}^{n \times d}$ -- whitened data matrix
+		\item \textbf{Input}: $k \le d$ -- desired number of components
+		\item \textbf{Output}: $W \in \mathbb{R}^{k \times d}$ -- unmixing matrix
+		\item \textbf{Output}: $S \in \mathbb{R}^{n \times d}$ -- estimated original sources matrix
+		
+		\Function{FastICA}{$X, k$}
+		\For{p \textbf{in} 1 to $k$}
+		\State{$\mathbf{w}_p \gets $ Random vector of length $n$}
+		\While{$\mathbf{w}_p$ changes}
+		\State{$\mathbf{w}_p \gets \frac{1}{d} \mathbf{X}g (\mathbf{w}_p^\top \mathbf{X})^\top - \frac{1}{M} g^{'} (\mathbf{w}_p^\top \mathbf{X}) \mathbf{1} \mathbf{w_p}$}
+		\State{$\mathbf{w}_p \gets \mathbf{w_p} - \sum_{j = 1}^{p - 1}(\mathbf{w_p}^\top \mathbf{w_j})\mathbf{w_j}$}
+		\State{$\mathbf{w}_p \gets \frac{\mathbf{w_p}}{||\mathbf{w_p}||}$}
+		\EndWhile
+		\EndFor
+		\State{\textbf{output} \textbf{W} $\gets [\mathbf{w}_1, \ldots, \mathbf{w}_d]$ }
+		\State{\textbf{output} S $\gets X W$}
+		\EndFunction
+		
+	\end{algorithmic}
+\end{algorithm}
 
 \subsection{NMF}
 
-NMF description.	
+Non-negative matrix factorization is another method often recommended to use to perform blind source separation.
 
 \end{document}
